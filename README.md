@@ -109,7 +109,7 @@ cd ./docker-spark/
 
 ### 2. Launch Docker Containers
 
-Use Docker Compose to launch the Spark containers:
+Launch the Docker Desktop. Then, use Docker Compose to launch the Spark containers:
 
 ```bash
 docker-compose up -d --remove-orphans
@@ -119,9 +119,9 @@ This will start the Spark master and worker containers in detached mode.
 
 ### 3. Access the Spark Containers
 
-You will need to open two separate terminals to interact with the Spark containers. Here's how you can proceed:
+You will need a total of two separate terminals to interact with the Spark containers. Here's how you can proceed:
 
-- Open a Terminal for the Worker Container
+- Use Terminal 1 for the Worker Container
 
 In the first terminal, access the worker container by running:
 
@@ -129,7 +129,7 @@ In the first terminal, access the worker container by running:
 docker exec -it docker-spark-worker-1 bash
 ```
 
-- Open a Terminal for the Master Container
+- Use Terminal 2 for the Master Container
 
 In the second terminal, access the master container by running:
 
