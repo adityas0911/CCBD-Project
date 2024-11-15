@@ -1,28 +1,58 @@
-# CCBD-Project: Final Project for CCBD Course
+# CCBD-Project
 
 This project aims to demonstrate the use of PySpark and Docker for scalable data processing. The repository contains a gravity simulator model implemented using PySpark and Docker.
+This repository contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024.
 
 ---
 
 ## Table of Contents
 
-1. [Project Overview](#project-overview)
-2. [Installation Instructions](#installation-instructions)
-
-   - [Docker Setup](#docker-setup)
-   - [Git Setup](#git-setup)
-
-3. [Running the Project](#running-the-project)
-4. [Project Directory Structure](#project-directory-structure)
-5. [License](#license)
+1. [Course Information](#course-information)
+2. [Due Date](#due-date)
+3. [Contributors](#contributors)
+4. [Project Overview](#project-overview)
+5. [Installation Instructions](#installation-instructions)
+6. [Running the Project](#running-the-project)
+7. [Project Directory Structure](#project-directory-structure)
+8. [License](#license)
+9. [Additional Notes](#additional-notes)
 
 ---
 
-### Project Overview
+## Course Information
+
+- **Course:** [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164)
+- **Professor:** [Maria Striki](mailto:maria.striki@rutgers.edu)
+
+---
+
+## Due Date
+
+- **December 02, 2024 @ 11:59 PM EST**
+
+---
+
+## Contributors
+
+- **Aditya Sharma**
+
+  - **RUID:** 219008361
+  - **NetID:** as4108
+  - **Email:** [as4108@scarletmail.rutgers.edu](mailto:as4108@scarletmail.rutgers.edu)
+
+- **Pranav Angiya Janarthanan**
+
+  - **RUID:** _
+  - **NetID:** pa446
+  - **Email:** [pa446@scarletmail.rutgers.edu](mailto:pa446@scarletmail.rutgers.edu)
+
+---
+
+## Project Overview
 
 This repository contains code to simulate gravity-based calculations using PySpark, packaged within a Docker environment. It is designed to show how to scale computations and run simulations efficiently in a distributed environment.
 
-The main project consists of:
+The main parts of the project consist of:
 
 - Gravity simulation code (`Gravity Simulator.py`)
 - Docker configuration for Spark-based computation (`docker-spark` folder)
@@ -30,7 +60,7 @@ The main project consists of:
 
 ---
 
-### Installation Instructions
+## Installation Instructions
 
 Follow the steps below to set up your environment and run the project.
 
@@ -67,7 +97,9 @@ Navigate to the desired directory where you want to store the repository, then c
 git clone https://github.com/adityas0911/CCBD-Project.git
 ```
 
-### 4. Navigate to the Docker-Spark Directory
+## Running the Project
+
+### 1. Navigate to the Docker-Spark Directory
 
 Once cloned, navigate to the docker-spark directory to configure Docker:
 
@@ -75,7 +107,7 @@ Once cloned, navigate to the docker-spark directory to configure Docker:
 cd CCBD-Project/docker-spark
 ```
 
-### 5. Launch Docker Containers
+### 2. Launch Docker Containers
 
 Use Docker Compose to launch the Spark containers:
 
@@ -85,25 +117,27 @@ docker-compose up -d --remove-orphans
 
 This will start the Spark master and worker containers in detached mode.
 
-### 6. Running the Project
+### 3. Access the Spark Containers
 
 You will need to open two separate terminals to interact with the Spark containers. Here's how you can proceed:
 
-1. Open a Terminal for the Worker Container
+### 1. Open a Terminal for the Worker Container
+
 In the first terminal, access the worker container by running:
 
 ```bash
 docker exec -it docker-spark-worker-1 bash
 ```
 
-2. Open a Terminal for the Master Container
+### 2. Open a Terminal for the Master Container
+
 In the second terminal, access the master container by running:
 
 ```bash
 docker exec -it docker-spark-master-1 bash
 ```
 
-3. Running Gravity Simulator on PySpark
+### 3. Running Gravity Simulator on PySpark
 
 To run the Gravity Simulator code directly using PySpark, submit the job with:
 
@@ -113,26 +147,44 @@ spark-submit 'Gravity Simulator.py'
 
 This will run the gravity simulation on the Spark cluster.
 
-### 7. Project Directory Structure
+## Project Directory Structure
 
 The project directory structure is as follows:
 
 ```bash
 CCBD-Project/
-├── docker-spark/                  # Contains Docker setup for Spark
-│   ├── docker-compose.yml         # Docker Compose configuration
-│   ├── spark/                     # Spark-related configuration files
-│   └── Dockerfile                 # Dockerfile for building the image
-│
-├── Gravity Simulator.py           # Gravity simulation code  
-└── README.md                      # This file
+├── Description/
+│   ├── F24_Final_Project_ECE494-516_Rubric_Grades_Template_Final.doc
+│   ├── Final_Project_Ideas_F24.pdf
+│   └── Project_Labs_Setup_F24.docx
+├── docker-spark/
+│   ├── conf/
+│   │   ├── master/
+│   │   │   └── spark-defaults.conf
+│   │   └── worker/
+│   │       └── spark-defaults.conf
+│   ├── data/
+│   │   └── .gitkeep
+│   ├── gitignore
+│   ├── cloudbuild.yaml
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── LICENSE
+│   └── README.md
+├── Resources/
+│   ├── Docker-Spark_setup_for_Windows_11.pdf
+│   └── docker-spark-hadoop-containers-howto_F24.pdf
+├── .gitattributes
+├── CCBD Final Project Proposal.pdf
+├── Gravity Simulator.py
+└── README.md
 ```
 
-### 8. License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-### 9. Additional Notes
+## Additional Notes
 
 Ensure that Docker is configured correctly on your system. If you're running on Windows, ensure that Docker Desktop is using Linux containers.
 Make sure you have sufficient memory allocated to Docker (at least 4GB recommended) for Spark to run effectively.
