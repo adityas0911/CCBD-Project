@@ -1,21 +1,21 @@
-# CCBD-Project
+# CCBD-Project: Gravity Simulator
 
-This project aims to demonstrate the use of PySpark and Docker for scalable data processing. The repository contains a gravity simulator model implemented using PySpark and Docker.
 This repository contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024.
+This project aims to demonstrate the use of PySpark and Docker for scalable data processing.
 
 ---
 
 ## Table of Contents
 
-1. [Course Information](#course-information)
-2. [Due Date](#due-date)
-3. [Contributors](#contributors)
-4. [Project Overview](#project-overview)
-5. [Installation Instructions](#installation-instructions)
-6. [Running the Project](#running-the-project)
-7. [Project Directory Structure](#project-directory-structure)
-8. [License](#license)
-9. [Additional Notes](#additional-notes)
+- [Course Information](#course-information)
+- [Due Date](#due-date)
+- [Contributors](#contributors)
+- [Project Overview](#project-overview)
+- [Installation Instructions](#installation-instructions)
+- [Running the Project](#running-the-project)
+- [Project Directory Structure](#project-directory-structure)
+- [License](#license)
+- [Additional Notes](#additional-notes)
 
 ---
 
@@ -32,7 +32,7 @@ This repository contains the [final project](https://rutgers.instructure.com/cou
 
 ---
 
-## Contributors
+## Contributor(s)
 
 - **Aditya Sharma**
 
@@ -50,12 +50,12 @@ This repository contains the [final project](https://rutgers.instructure.com/cou
 
 ## Project Overview
 
-This repository contains code to simulate gravity-based calculations using PySpark, packaged within a Docker environment. It is designed to show how to scale computations and run simulations efficiently in a distributed environment.
-
+This repository contains code to simulate gravity-based calculations using PySpark, packaged within a Docker environment.
+It is designed to show how to scale computations and run simulations efficiently in a distributed environment.
 The main parts of the project consist of:
 
-- Gravity simulation code (`Gravity Simulator.py`)
-- Docker configuration for Spark-based computation (`docker-spark` folder)
+- Gravity simulation code ([Gravity Simulator.py](Gravity%20Simulator.py))
+- Docker configuration for Spark-based computation ([docker-spark](docker-spark))
 - PySpark setup for handling large-scale data in a distributed environment
 
 ---
@@ -66,7 +66,8 @@ Follow the steps below to set up your environment and run the project.
 
 ### 1. Docker Setup
 
-First, you need to install Docker on your platform. Follow the official documentation for installation:
+First, you need to install Docker on your platform.
+Follow the official documentation for installation:
 
 - [Install Docker](https://docs.docker.com/get-docker/)
 - [Docker Desktop Installation Guide](https://www.docker.com/get-started/)
@@ -81,7 +82,7 @@ docker --version
 
 Ensure that Git is installed on your system:
 
-- [Download Git](https://git-scm.com/downloads)
+- [Install Git](https://git-scm.com/downloads)
 
 You can You can verify the installation with:
 
@@ -119,9 +120,10 @@ This will start the Spark master and worker containers in detached mode.
 
 ### 3. Access the Spark Containers
 
-You will need to open two separate terminals to interact with the Spark containers. Here's how you can proceed:
+You will need to open two separate terminals to interact with the Spark containers.
+Here's how you can proceed:
 
-### 1. Open a Terminal for the Worker Container
+#### 1. Open a Terminal for the Worker Container
 
 In the first terminal, access the worker container by running:
 
@@ -129,7 +131,7 @@ In the first terminal, access the worker container by running:
 docker exec -it docker-spark-worker-1 bash
 ```
 
-### 2. Open a Terminal for the Master Container
+#### 2. Open a Terminal for the Master Container
 
 In the second terminal, access the master container by running:
 
@@ -137,7 +139,7 @@ In the second terminal, access the master container by running:
 docker exec -it docker-spark-master-1 bash
 ```
 
-### 3. Running Gravity Simulator on PySpark
+### 4. Running Gravity Simulator on PySpark
 
 To run the Gravity Simulator code directly using PySpark, submit the job with:
 
@@ -186,5 +188,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Additional Notes
 
-Ensure that Docker is configured correctly on your system. If you're running on Windows, ensure that Docker Desktop is using Linux containers.
-Make sure you have sufficient memory allocated to Docker (at least 4GB recommended) for Spark to run effectively.
+Ensure that Docker is configured correctly on your system.
+If you're running on Windows, ensure that Docker Desktop is using Linux containers.
+Make sure you have sufficient memory allocated to Docker for Spark to run effectively.
