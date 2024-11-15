@@ -104,7 +104,7 @@ git clone https://github.com/adityas0911/CCBD-Project.git
 Once cloned, navigate to the docker-spark directory to configure Docker:
 
 ```bash
-cd CCBD-Project/docker-spark
+cd ./docker-spark/
 ```
 
 ### 2. Launch Docker Containers
