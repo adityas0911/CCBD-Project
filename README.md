@@ -109,7 +109,7 @@ cd ./docker-spark/
 
 ### 2. Launch Docker Containers
 
-Launch the Docker Desktop. Then, use Docker Compose to launch the Spark containers:
+Launch the Docker Desktop software. Then, use Docker Compose to launch the Spark containers:
 
 ```bash
 docker-compose up -d --remove-orphans
@@ -139,13 +139,19 @@ docker exec -it docker-spark-master-1 bash
 
 ### 4. Running Gravity Simulator on PySpark
 
-To run the Gravity Simulator code directly using PySpark, you will need to use Terminal 2 (the master container). Submit the job with:
+To run the Gravity Simulator code directly using PySpark, you will need to use Terminal 2 (the master container). Navigate to the project directory to access the project directory:
 
 ```bash
-spark-submit 'CCBD-Project/Gravity Simulator.py'
+cd ./CCBD-Project
 ```
 
-This will run the gravity simulation on the Spark cluster.
+Submit the job with:
+
+```bash
+spark-submit 'Gravity Simulator.py'
+```
+
+This will run the gravity simulation file ```Gravity Simulator.py``` on the Spark cluster.
 
 ---
 
