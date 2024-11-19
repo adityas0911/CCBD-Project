@@ -165,6 +165,9 @@ CCBD-Project/
 │   ├── F24_Final_Project_ECE494-516_Rubric_Grades_Template_Final.doc
 │   ├── Final_Project_Ideas_F24.pdf
 │   └── Project_Labs_Setup_F24.docx
+├── Resources/
+│   ├── Docker-Spark_setup_for_Windows_11.pdf
+│   └── docker-spark-hadoop-containers-howto_F24.pdf
 ├── docker-spark/
 │   ├── conf/
 │   │   ├── master/
@@ -174,14 +177,11 @@ CCBD-Project/
 │   ├── data/
 │   │   └── .gitkeep
 │   ├── gitignore
-│   ├── cloudbuild.yaml
-│   ├── docker-compose.yml
 │   ├── Dockerfile
 │   ├── LICENSE
 │   └── README.md
-├── Resources/
-│   ├── Docker-Spark_setup_for_Windows_11.pdf
-│   └── docker-spark-hadoop-containers-howto_F24.pdf
+│   ├── cloudbuild.yaml
+│   ├── docker-compose.yml
 ├── .gitattributes
 ├── CCBD Final Project Proposal.pdf
 ├── Gravity Simulator.py
