@@ -112,7 +112,7 @@ cd ./docker-spark/
 Launch the Docker Desktop software. Then, use Docker Compose to launch the Spark containers:
 
 ```bash
-docker-compose up -d --remove-orphans
+docker-compose up -d
 ```
 
 This will start the Spark master and worker containers in detached mode.
