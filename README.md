@@ -1,6 +1,6 @@
 # CCBD-Project: Gravity Simulator
 
-This [repository](https://github.com/adityas0911/CCBD-Project) contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024. This project aims to demonstrate the use of PySpark and Docker for scalable data processing.
+This [repository](https://github.com/adityas0911/CCBD-Project) contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024. This project aims to demonstrate the capabilities of PySpark and CUDA for simulating gravity-based calculations.
 
 ---
 
@@ -49,7 +49,7 @@ This [project](https://rutgers.instructure.com/courses/295164/assignments/337050
 
 ## Project Overview
 
-This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations using PySpark and CUDA. It is designed to show comparisions between PySpark and CUDA. The main parts of the project consists of:
+This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations using pyspark and CUDA. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
 
 ### 1. README file for instruction on running the project ([README.md](README.md))
 
@@ -61,7 +61,7 @@ This [repository](https://github.com/adityas0911/CCBD-Project) contains code to 
 
 ## Installation Instructions
 
-Follow the steps below to set up your pyspark environment using docker and run the project:
+Follow the steps below to set up your pyspark environment using Docker and run the project:
 
 ### 1. Docker Setup
 
@@ -90,7 +90,7 @@ git --version
 
 ### 3. Navigate to the PySpark Directory
 
-Navigate to the PySpark directory to configure Docker:
+Navigate to the [PySpark directory](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark) to configure Docker:
 
 ```bash
 cd ./PySpark/
@@ -102,7 +102,7 @@ cd ./PySpark/
 
 ### 1. Navigate to the Docker-Spark Directory
 
-Once cloned, navigate to the docker-spark directory to configure Docker:
+Once cloned, navigate to the [docker-spark directory](https://github.com/adityas0911/CCBD-Project/tree/main/docker-spark) to configure Docker:
 
 ```bash
 cd ./docker-spark/
@@ -116,9 +116,9 @@ Launch the Docker Desktop software. Then, use Docker Compose to launch the Spark
 docker-compose up -d
 ```
 
-This will start the Spark master and worker containers in detached mode.
+This will start the pyspark master and worker containers in detached mode.
 
-### 3. Access the Spark Containers
+### 3. Access the pyspark Containers
 
 You will need a total of two separate terminals to interact with the Spark containers. Here's how you can proceed:
 
@@ -152,7 +152,21 @@ Submit the job with:
 spark-submit 'Gravity Simulator.py'
 ```
 
-This will run the gravity simulation file ```Gravity Simulator.py``` on the Spark cluster.
+This will run the [gravity simulation file](https://github.com/adityas0911/CCBD-Project/blob/main/PySpark/Gravity%20Simulator.py) on the pyspark cluster.
+
+### 5. Closing the PySpark Containers
+
+To close the pyspark containers, first close both terminals using the following command on BOTH terminals:
+
+```bash
+exit()
+```
+
+Next, use Docker Compose to stop the containers:
+
+```bash
+docker-compose down
+```
 
 ---
 
@@ -164,7 +178,7 @@ Follow the steps below to setup your CUDA environment and run the CUDA portion o
 
 ## Project Directory Structure
 
-The project directory structure is as follows:
+The [project](https://github.com/adityas0911/CCBD-Project) directory structure is as follows:
 
 ```bash
 CCBD-Project/
@@ -172,26 +186,28 @@ CCBD-Project/
 │   ├── F24_Final_Project_ECE494-516_Rubric_Grades_Template_Final.doc
 │   ├── Final_Project_Ideas_F24.pdf
 │   └── Project_Labs_Setup_F24.docx
-├── Resources/
-│   ├── Docker-Spark_setup_for_Windows_11.pdf
-│   └── docker-spark-hadoop-containers-howto_F24.pdf
-├── docker-spark/
-│   ├── conf/
-│   │   ├── master/
-│   │   │   └── spark-defaults.conf
-│   │   └── worker/
-│   │       └── spark-defaults.conf
-│   ├── data/
-│   │   └── .gitkeep
-│   ├── gitignore
-│   ├── Dockerfile
-│   ├── LICENSE
-│   └── README.md
-│   ├── cloudbuild.yaml
-│   ├── docker-compose.yml
+├── PySpark/
+│   ├── Resources/
+│   │   ├── Docker-Spark_setup_for_Windows_11.pdf
+│   │   └── docker-spark-hadoop-containers-howto_F24.pdf
+│   ├── docker-spark/
+│   │   ├── conf/
+│   │   │   ├── master/
+│   │   │   │   └── spark-defaults.conf
+│   │   │   └── worker/
+│   │   │       └── spark-defaults.conf
+│   │   ├── data/
+│   │   │   └── .gitkeep
+│   │   ├── gitignore
+│   │   ├── Dockerfile
+│   │   ├── LICENSE
+│   │   └── README.md
+│   │   ├── cloudbuild.yaml
+│   │   ├── docker-compose.yml
+│   ├── Gravity Simulator.py
+├── CUDA/
 ├── .gitattributes
 ├── CCBD Final Project Proposal.pdf
-├── Gravity Simulator.py
 └── README.md
 ```
 
@@ -199,12 +215,14 @@ CCBD-Project/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This [project](https://github.com/adityas0911/CCBD-Project) is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
 ## Additional Notes
 
-Ensure that Docker is configured correctly on your system.
-If you're running on Windows, ensure that Docker Desktop is using Linux containers.
-Make sure you have sufficient memory allocated to Docker for Spark to run effectively.
+### 1. For [PySpark](PySpark)
+
+Ensure that Docker is configured correctly on your system. If you're running on Windows, ensure that Docker Desktop is using Linux containers. Make sure you have sufficient memory allocated to Docker for Spark to run effectively.
+
+### 2. For [CUDA](CUDA)
