@@ -159,7 +159,7 @@ This will run the [gravity simulation file](https://github.com/adityas0911/CCBD-
 To close the pyspark containers, first close both terminals using the following command on BOTH terminals:
 
 ```bash
-exit()
+exit
 ```
 
 Next, use Docker Compose to stop the containers:
