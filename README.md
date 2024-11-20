@@ -49,7 +49,7 @@ This [project](https://rutgers.instructure.com/courses/295164/assignments/337050
 
 ## Project Overview
 
-This project aims to demonstrate the capabilities of PySpark and CUDA for simulating gravity-based calculations. This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
+This [project](https://rutgers.instructure.com/courses/295164/assignments/3370507) aims to demonstrate the capabilities of pyspark and CUDA for simulating gravity-based calculations. This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
 
 ### 1. README file for instruction on running the project ([README.md](README.md))
 
@@ -82,7 +82,7 @@ Ensure that Git is installed on your system:
 
 - [Install Git](https://git-scm.com/downloads)
 
-You can You can verify the installation with:
+You can verify the installation with:
 
 ```bash
 git --version
@@ -102,7 +102,7 @@ cd ./PySpark/
 
 ### 1. Navigate to the Docker-Spark Directory
 
-Once cloned, navigate to the [docker-spark directory](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark/docker-spark) to configure Docker:
+Navigate to the [docker-spark directory](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark/docker-spark) to configure Docker:
 
 ```bash
 cd ./docker-spark/
@@ -206,6 +206,7 @@ CCBD-Project/
 │   │   ├── docker-compose.yml
 │   ├── Gravity Simulator.py
 ├── CUDA/
+│   ├── .gitkeep
 ├── .gitattributes
 ├── CCBD Final Project Proposal.pdf
 └── README.md
