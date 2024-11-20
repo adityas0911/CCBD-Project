@@ -1,6 +1,6 @@
 # CCBD-Project: Gravity Simulator
 
-This repository contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024. This project aims to demonstrate the use of PySpark and Docker for scalable data processing.
+This [repository](https://github.com/adityas0911/CCBD-Project) contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024. This project aims to demonstrate the use of PySpark and Docker for scalable data processing.
 
 ---
 
@@ -11,10 +11,11 @@ This repository contains the [final project](https://rutgers.instructure.com/cou
 3. [Contributors](#contributors)
 4. [Project Overview](#project-overview)
 5. [Installation Instructions](#installation-instructions)
-6. [Running the Project](#running-the-project)
-7. [Project Directory Structure](#project-directory-structure)
-8. [License](#license)
-9. [Additional Notes](#additional-notes)
+6. [Running the PySpark Portion](#running-the-pyspark-portion)
+7. [Running the CUDA Portion](#running-the-cuda-portion)
+8. [Project Directory Structure](#project-directory-structure)
+9. [License](#license)
+10. [Additional Notes](#additional-notes)
 
 ---
 
@@ -26,7 +27,7 @@ The course name is [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructu
 
 ## Due Date
 
-This project is due on December 02, 2024 at 11:59 PM EST.
+This [project](https://rutgers.instructure.com/courses/295164/assignments/3370507) is due on December 02, 2024 at 11:59 PM EST.
 
 ---
 
@@ -48,19 +49,19 @@ This project is due on December 02, 2024 at 11:59 PM EST.
 
 ## Project Overview
 
-This repository contains code to simulate gravity-based calculations using PySpark, packaged within a Docker environment. It is designed to show how to scale computations and run simulations efficiently in a distributed environment. The main parts of the project consists of:
+This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations using PySpark and CUDA. It is designed to show comparisions between PySpark and CUDA. The main parts of the project consists of:
 
-### 1. Gravity simulation code ([Gravity Simulator.py](Gravity%20Simulator.py))
+### 1. README file for instruction on running the project ([README.md](README.md))
 
-### 2. Docker configuration for Spark-based computation ([docker-spark](docker-spark))
+### 2. PySpark folder for the pyspark portion of the project ([PySpark](PySpark))
 
-### 3. PySpark setup for handling large-scale data in a distributed environment
+### 3. CUDA folder for the CUDA portion of the project ([CUDA](CUDA))
 
 ---
 
 ## Installation Instructions
 
-Follow the steps below to set up your environment and run the project:
+Follow the steps below to set up your pyspark environment using docker and run the project:
 
 ### 1. Docker Setup
 
@@ -87,17 +88,17 @@ You can You can verify the installation with:
 git --version
 ```
 
-### 3. Clone the Repository
+### 3. Navigate to the PySpark Directory
 
-Navigate to the desired directory where you want to store the repository, then clone it using the following command:
+Navigate to the PySpark directory to configure Docker:
 
 ```bash
-git clone https://github.com/adityas0911/CCBD-Project.git
+cd ./PySpark/
 ```
 
 ---
 
-## Running the Project
+## Running the PySpark Portion
 
 ### 1. Navigate to the Docker-Spark Directory
 
@@ -152,6 +153,12 @@ spark-submit 'Gravity Simulator.py'
 ```
 
 This will run the gravity simulation file ```Gravity Simulator.py``` on the Spark cluster.
+
+---
+
+## Running the CUDA Portion
+
+Follow the steps below to setup your CUDA environment and run the CUDA portion of the project:
 
 ---
 
