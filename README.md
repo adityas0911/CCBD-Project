@@ -1,6 +1,6 @@
 # CCBD-Project: Gravity Simulator
 
-This [repository](https://github.com/adityas0911/CCBD-Project) contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024. This project aims to demonstrate the capabilities of PySpark and CUDA for simulating gravity-based calculations.
+This [repository](https://github.com/adityas0911/CCBD-Project) contains the [final project](https://rutgers.instructure.com/courses/295164/assignments/3370507) for the course [16:332:516:01 CLOUD COMP BIG DATA](https://rutgers.instructure.com/courses/295164) Fall 2024.
 
 ---
 
@@ -49,7 +49,7 @@ This [project](https://rutgers.instructure.com/courses/295164/assignments/337050
 
 ## Project Overview
 
-This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations using pyspark and CUDA. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
+This project aims to demonstrate the capabilities of PySpark and CUDA for simulating gravity-based calculations. This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
 
 ### 1. README file for instruction on running the project ([README.md](README.md))
 
@@ -102,7 +102,7 @@ cd ./PySpark/
 
 ### 1. Navigate to the Docker-Spark Directory
 
-Once cloned, navigate to the [docker-spark directory](https://github.com/adityas0911/CCBD-Project/tree/main/docker-spark) to configure Docker:
+Once cloned, navigate to the [docker-spark directory](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark/docker-spark) to configure Docker:
 
 ```bash
 cd ./docker-spark/
@@ -140,7 +140,7 @@ docker exec -it docker-spark-master-1 bash
 
 ### 4. Running Gravity Simulator on PySpark
 
-To run the Gravity Simulator code directly using PySpark, you will need to use Terminal 2 (the master container). Navigate to the project directory to access the project directory:
+To run the Gravity Simulator code directly using pyspark, you will need to use Terminal 2 (the master container). Navigate to the [CCBD Project directory](https://github.com/adityas0911/CCBD-Project):
 
 ```bash
 cd ./CCBD-Project
@@ -215,7 +215,7 @@ CCBD-Project/
 
 ## License
 
-This [project](https://github.com/adityas0911/CCBD-Project) is licensed under the MIT License - see the LICENSE file for details.
+This [project](https://github.com/adityas0911/CCBD-Project) is licensed under the MIT [License](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark/docker-spark/LICENSE).
 
 ---
 
