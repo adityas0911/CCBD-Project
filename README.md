@@ -51,11 +51,11 @@ This [project](https://rutgers.instructure.com/courses/295164/assignments/337050
 
 This [project](https://rutgers.instructure.com/courses/295164/assignments/3370507) aims to demonstrate the capabilities of pyspark and CUDA for simulating gravity-based calculations. This [repository](https://github.com/adityas0911/CCBD-Project) contains code to simulate gravity-based calculations. It is designed to show comparisions between pyspark and CUDA. The main parts of the project consists of:
 
-### 1. README file for instruction on running the project ([README.md](README.md))
+- README file for instruction on running the project ([README.md](README.md))
 
-### 2. PySpark folder for the pyspark portion of the project ([PySpark](PySpark))
+- PySpark folder for the pyspark portion of the project ([PySpark](PySpark))
 
-### 3. CUDA folder for the CUDA portion of the project ([CUDA](CUDA))
+- CUDA folder for the CUDA portion of the project ([CUDA](CUDA))
 
 ---
 
