@@ -41,7 +41,7 @@ This [project](https://rutgers.instructure.com/courses/295164/assignments/337050
 
 ### 2. **Pranav Angiya Janarthanan**
 
-- **RUID:** _________
+- **RUID:** 200002435
 - **NetID:** pa446
 - **Email:** [pa446@scarletmail.rutgers.edu](mailto:pa446@scarletmail.rutgers.edu)
 
