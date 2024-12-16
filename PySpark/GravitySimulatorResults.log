@@ -1,0 +1,8 @@
+2024-12-16 08:21:47,598 - INFO - Spark version: 2.4.1
+2024-12-16 08:21:47,603 - INFO - Master URL: local[8]
+2024-12-16 08:21:51,037 - INFO - Input Planet Data:
+2024-12-16 08:21:57,380 - INFO - Gravity Calculation Results:
+2024-12-16 08:21:57,382 - INFO - Gravity between Earth and Moon: 1.980e+20 N
+2024-12-16 08:21:57,382 - INFO - Gravity between Earth and Mars: 4.923e+15 N
+2024-12-16 08:21:57,384 - INFO - Gravity between Moon and Mars: 6.073e+13 N
+2024-12-16 08:21:57,385 - INFO - Time taken for gravity simulation: 0.00949859619140625 seconds
