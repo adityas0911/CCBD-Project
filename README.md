@@ -140,10 +140,10 @@ docker exec -it docker-spark-master-1 bash
 
 ### 4. Running Gravity Simulator on PySpark
 
-To run the Gravity Simulator code directly using pyspark, you will need to use Terminal 2 (the master container). Navigate to the [CCBD Project directory](https://github.com/adityas0911/CCBD-Project):
+To run the Gravity Simulator code directly using pyspark, you will need to use Terminal 2 (the master container). Navigate to the [PySpark directory](https://github.com/adityas0911/CCBD-Project/tree/main/PySpark):
 
 ```bash
-cd ./CCBD-Project
+cd ./CCBD-Project/PySpark
 ```
 
 Submit the job with:
