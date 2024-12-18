@@ -1,21 +1,38 @@
-#!/usr/bin/env python3
+#!/usr/local/bin python3
 
 import numpy as np
+import os
+import csv
 
-def export_nbody_to_file(filename, masses, positions, velocities):
+def export_nbody_to_file(filename, masses, positions, velocities, N):
     """
     Exports N-body data to a text file where each line contains:
     mass, x, y, z, vx, vy, vz
     """
-    with open(filename, 'w') as f:
-        f.write("# mass x y z vx vy vz\n")
-        for i in range(len(masses)):
-            mass = masses[i]
-            x, y, z = positions[i]
-            vx, vy, vz = velocities[i]
-            line = f"{mass:.9e} {x:.9e} {y:.9e} {z:.9e} {vx:.9e} {vy:.9e} {vz:.9e}\n"
-            f.write(line)
-    print(f"Exported N-body data to {filename}")
+    
+    if filename == "solar_system_2023_01_01.csv":
+        directory = os.path.join("..", "data")
+    else:
+        directory = os.path.join("..", "data", str(N))
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    filename = os.path.join(directory, filename)
+
+    N = len(masses)
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        # Write a header row (optional)
+        writer.writerow(["mass", "x", "y", "z", "vx", "vy", "vz"])
+        
+        for i in range(N):
+            row = [
+                masses[i],
+                positions[i,0], positions[i,1], positions[i,2],
+                velocities[i,0], velocities[i,1], velocities[i,2]
+            ]
+            writer.writerow(row)
+    print(f"Exported {N} bodies to {filename}")
 
 def generate_random_nbody(N=100, box_size=100.0, v_max=1.0, 
                           mass_min=1.0, mass_max=10.0):
@@ -123,13 +140,9 @@ def generate_binary_system_with_debris(N=50, star_mass1=5e4, star_mass2=5e4,
 
 def generate_solar_system_2023_01_01():
     """
-    Returns names, positions (AU), velocities (AU/day), and masses (kg) 
+    Returns names, positions (Km), velocities (Km/day), and masses (kg) 
     for the Sun + 8 major planets on Jan 1, 2023 (heliocentric frame).
     """
-    names = [
-        "Sun", "Mercury", "Venus", "Earth", 
-        "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"
-    ]
     
     masses_kg = np.array([
         1.98847e30,  # Sun
@@ -143,63 +156,64 @@ def generate_solar_system_2023_01_01():
         1.02409e26   # Neptune
     ])
     
-    # Approx Jan 1, 2023 positions in AU and velocities in AU/day 
+    # Approx Jan 1, 2023 positions in Km and velocities in Km/day 
     # Data from an approximate ephemeris (NASA JPL Horizons).
     initial_data = np.array([
         # Sun
         [  0.0,          0.0,          0.0,           0.0,         0.0,         0.0       ],
         # Mercury
-        [  1.2697e-01,   2.5334e-01,   1.2217e-01,   -3.1264e-02,  1.0078e-02,  8.6239e-03],        #FIXED
+        [  1.89949e+07,   3.78989e+07,   1.82768e+07,   -4.67707e+06,  1.50758e+06,  1.29011e+06],
         # Venus
-        [  4.4553e-02,  -7.2519e-01,  -1.0596e-02,    2.0053e-02,  1.3797e-03, -1.1440e-03],
+        [  8.39493e+07,  -6.11597e+07,  -3.28308e+07,    1.90494e+06,  2.16291e+06,  8.52698e+05],
         # Earth
-        [ -1.7283e-01,   9.6613e-01,   4.0910e-05,   -1.7231e-02, -3.0671e-03, -8.5525e-07],
+        [ -2.54699e+07,   1.32931e+08,   5.76246e+07,   -2.57614e+06, -4.18553e+05, -1.81525e+05],
         # Mars
-        [  1.3948e+00,  -2.4861e-01,  -4.0429e-02,    3.9098e-03,  1.4138e-02,  2.7986e-04],
+        [  9.10721e+06,   2.12633e+08,   9.72845e+07,   -2.01254e+06,  2.16137e+05,  1.53438e+05],
         # Jupiter
-        [  3.9820e+00,  -3.1462e+00,  -6.6743e-02,    4.4883e-03,  5.7381e-03, -1.0581e-04],
+        [  7.23788e+08,   1.50162e+08,   4.67454e+07,   -2.51843e+05,  1.06185e+06,  4.61269e+05],
         # Saturn
-        [  6.4487e+00,  -7.6007e+00,  -1.8828e-01,    3.8546e-03,  3.4029e-03, -2.1316e-04],
+        [  1.21883e+09,  -7.41999e+08,  -3.58956e+08,    4.20866e+05,  6.45417e+05,  2.48481e+05],
         # Uranus
-        [  1.4046e+01,   1.2824e+01,  -1.2851e-01,   -2.5057e-03,  2.6807e-03,  4.6748e-05],
+        [  2.00008e+09,   1.98729e+09,   8.42074e+08,   -4.36135e+05,  3.40087e+05,  1.55103e+05],
         # Neptune
-        [  2.9754e+01,  -4.5290e-01,  -5.5911e-01,    4.4692e-04,  3.1026e-03, -8.0777e-05]
+        [  4.45216e+09,  -3.66703e+08,  -2.60937e+08,    4.29981e+04,  4.36848e+05,  1.77795e+05]
     ])
     
     positions = initial_data[:, 0:3]
     velocities = initial_data[:, 3:6]
     
-    return names, positions, velocities, masses_kg
+    return positions, velocities, masses_kg
 
 def main():
 
     AllN = [100, 1000, 10000, 100000]
+    # AllN = [100]
 
     for N in AllN: 
         # 1) Random N-body
         rand_pos, rand_vel, rand_m = generate_random_nbody(
             N=N, box_size=100.0, v_max=20.0, mass_min=1.0, mass_max=100.0
         )
-        filestring = f"random_{N}_body.txt"
-        export_nbody_to_file(filestring, rand_m, rand_pos, rand_vel)
+        filestring = f"random_{N}_body.csv"
+        export_nbody_to_file(filestring, rand_m, rand_pos, rand_vel, N)
 
         # 2) Stable Orbits
         stable_pos, stable_vel, stable_m = generate_stable_orbits(
             N=N, radius=500.0, central_mass=1e7
         )
-        filestring = f"stable_orbits_{N}_body.txt"
-        export_nbody_to_file(filestring, stable_m, stable_pos, stable_vel)
+        filestring = f"stable_orbits_{N}_body.csv"
+        export_nbody_to_file(filestring, stable_m, stable_pos, stable_vel, N)
 
         # 3) Binary System + Debris
         binary_pos, binary_vel, binary_m = generate_binary_system_with_debris(
             N=N, star_mass1=2e4, star_mass2=3e4, star_separation=80.0, debris_count=N-2, debris_radius=200.0
         )
-        filestring = f"binary_debris_{N}_body.txt"
-        export_nbody_to_file(filestring, binary_m, binary_pos, binary_vel)
+        filestring = f"binary_debris_{N}_body.csv"
+        export_nbody_to_file(filestring, binary_m, binary_pos, binary_vel, N)
 
     # 4) Solar System (Jan 1, 2023)
-    ss_names, ss_pos, ss_vel, ss_m = generate_solar_system_2023_01_01()
-    export_nbody_to_file("solar_system_2023_01_01.txt", ss_m, ss_pos, ss_vel)
+    ss_pos, ss_vel, ss_m = generate_solar_system_2023_01_01()
+    export_nbody_to_file("solar_system_2023_01_01.csv", ss_m, ss_pos, ss_vel, 9)
     
 
 if __name__ == "__main__":
