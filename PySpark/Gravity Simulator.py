@@ -1,78 +1,106 @@
 import time
 import logging
+import math
 
 from pyspark.sql import SparkSession
+
+INPUT_FILE = "solar_system_2023_01_01.csv"
+OUTPUT_FILE = "GravitySimulatorResults.csv"
+UPDATED_GRAVITY_CONSTANT = 6.67430e-11 * (86400**2) / (10**9)
+DAYS_TO_SIMULATE = 365
+THREAD_COUNTS = [1,
+                 2,
+                 4,
+                 8]
 
 logging.basicConfig(filename="GravitySimulatorResults.log",
                     level=logging.INFO,
                     format="%(asctime)s - %(levelname)s - %(message)s")
 
-spark = SparkSession.builder \
-        .appName("GravitySimulator") \
-        .master("local[8]") \
-        .getOrCreate()
+def create_spark_session(threads):
+  return SparkSession.builder \
+         .appName("GravitySimulator") \
+         .master(f"local[{threads}]") \
+         .getOrCreate()
+def load_data(spark):
+  return spark.read.csv(INPUT_FILE,
+                        header=True,
+                        inferSchema=True)
+def calculate_gravity(b1, b2):
+  dx = b2["X"] - b1["X"]
+  dy = b2["Y"] - b1["Y"]
+  dz = b2["Z"] - b1["Z"]
+  distance = math.sqrt(dx**2 + dy**2 + dz**2)
 
-logging.info("Spark version: {}".format(spark.version))
-logging.info("Master URL: {}".format(spark.sparkContext.master))
+  if distance == 0:
+    return (0,
+            0,
+            0)
 
-gravity_constant = 6.67430e-11
-planets_data = [("Earth",
-                 5.972e24,
-                 (0,
-                  0)),
-                ("Moon",
-                 7.342e22,
-                 (384400000,
-                  0)),
-                ("Mars",
-                 6.417e23,
-                 (227940000000,
-                  0)),]
-columns = ["Planet",
-           "Mass",
-           "Position"]
+  force = UPDATED_GRAVITY_CONSTANT * b1["Mass"] * b2["Mass"] / (distance**2)
+  fx, fy, fz = force * dx / distance, force * dy / distance, force * dz / distance
 
-df = spark.createDataFrame(planets_data,
-                           columns)
+  return (fx, 
+          fy,
+          fz)
+def update_body_positions(partition):
+  bodies = list(partition)
 
-logging.info("Input Planet Data:")
-df.show()
+  for _ in range(DAYS_TO_SIMULATE):
+    forces = {i: (0,
+                  0,
+                  0) for i in range(len(bodies))}
 
-def distance_between_planets(planet_1,
-                             planet_2):
-  return ((planet_1[2][0] - planet_2[2][0])**2 + (planet_1[2][1] - planet_2[2][1])**2)**0.5
-def calculate_gravity(planet_1,
-                      planet_2):
-  return gravity_constant * (planet_1[1] * planet_2[1]) / (distance_between_planets(planet_1,
-                                                                                    planet_2)**2)
+    for i, b1 in enumerate(bodies):
+      for j, b2 in enumerate(bodies[i + 1:],
+                             start=i + 1):
+        fx, fy, fz = calculate_gravity(b1,
+                                       b2)
+        forces[i] = tuple(map(sum,
+                              zip(forces[i],
+                                  (fx,
+                                   fy,
+                                   fz))))
+        forces[j] = tuple(map(sum,
+                              zip(forces[j],
+                                  (-fx,
+                                   -fy,
+                                   -fz))))
+    for i, body in enumerate(bodies):
+      fx, fy, fz = forces[i]
+      ax, ay, az = fx / body["Mass"], fy / body["Mass"], fz / body["Mass"]
+      body["VX"] += ax
+      body["VY"] += ay
+      body["VZ"] += az
+      body["X"] += body["VX"]
+      body["Y"] += body["VY"]
+      body["Z"] += body["VZ"]
 
-start_time = time.time()
-gravity_results = []
+  return bodies
 
-for [i,
-     planet_1] in enumerate(planets_data):
-  for planet_2 in planets_data[i + 1:]:
-    gravity_results.append((planet_1[0],
-                            planet_2[0],
-                            calculate_gravity(planet_1,
-                                              planet_2)))
+for threads in THREAD_COUNTS:
+  logging.info(f"Starting simulation with {threads} threads")
 
-logging.info("Gravity Calculation Results:")
+  spark = create_spark_session(threads)
+  data = load_data(spark)
+  bodies = data.select("Mass",
+                       "X",
+                       "Y",
+                       "Z",
+                       "VX",
+                       "VY",
+                       "VZ")
+  start_time = time.time()
+  simulated_data = bodies.rdd.mapPartitions(update_body_positions)
+  simulated_df = spark.createDataFrame(simulated_data)
+  time_taken = time.time() - start_time
 
-for result in gravity_results:
-  logging.info("Gravity between {} and {}: {:.3e} N".format(result[0],
-                                                            result[1],
-                                                            result[2]))
+  logging.info(f"Simulation with {threads} threads completed in {time_taken:.2f} seconds")
 
-time_taken = time.time() - start_time
+  output_file = f"{OUTPUT_FILE}_threads_{threads}.csv"
 
-logging.info("Time taken for gravity simulation: {} seconds".format(time_taken))
+  simulated_df.write.csv(output_file,
+                         header=True)
+  logging.info(f"Results saved to {output_file}")
 
-results_df = spark.createDataFrame(gravity_results,
-                                   ["Planet_1",
-                                    "Planet_2",
-                                    "Gravitational_Force"])
-results_df.write.csv("GravitySimulatorResults.csv",
-                     header=True)
-
-spark.stop()
+  spark.stop()
