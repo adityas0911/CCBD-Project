@@ -20,7 +20,7 @@ logging.basicConfig(filename="GravitySimulatorResults.log",
 def create_spark_session(threads):
   return SparkSession.builder \
          .appName("GravitySimulator") \
-         .master(f"local[{threads}]") \
+         .master("local[{}]".format(threads)) \
          .getOrCreate()
 def load_data(spark):
   return spark.read.csv(INPUT_FILE,
@@ -79,7 +79,7 @@ def update_body_positions(partition):
   return bodies
 
 for threads in THREAD_COUNTS:
-  logging.info(f"Starting simulation with {threads} threads")
+  logging.info("Starting simulation with {} threads".format(threads))
 
   spark = create_spark_session(threads)
   data = load_data(spark)
@@ -95,12 +95,14 @@ for threads in THREAD_COUNTS:
   simulated_df = spark.createDataFrame(simulated_data)
   time_taken = time.time() - start_time
 
-  logging.info(f"Simulation with {threads} threads completed in {time_taken:.2f} seconds")
+  logging.info("Simulation with {} threads completed in {:.2f} seconds".format(threads,
+                                                                               time_taken))
 
-  output_file = f"{OUTPUT_FILE}_threads_{threads}.csv"
+  output_file = "{}_threads_{}.csv".format(OUTPUT_FILE,
+                                           threads)
 
   simulated_df.write.csv(output_file,
                          header=True)
-  logging.info(f"Results saved to {output_file}")
+  logging.info("Results saved to {}".format(output_file))
 
   spark.stop()

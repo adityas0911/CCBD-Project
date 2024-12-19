@@ -24,7 +24,7 @@ services:
       - 8080:8080
     volumes:
       - ./conf/master:/conf
-      - ./../:/usr/spark-2.4.1/CCBD-Project/PySpark
+      - ./../../:/usr/spark-2.4.1/CCBD-Project
 
   worker:
     image: gettyimages/spark
@@ -50,4 +50,4 @@ services:
       - 8081:8081
     volumes:
       - ./conf/worker:/conf
-      - ./../:/usr/spark-2.4.1/CCBD-Project/PySpark
+      - ./../../:/usr/spark-2.4.1/CCBD-Project
