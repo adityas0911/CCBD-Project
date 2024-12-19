@@ -1,4 +1,3 @@
-%%writefile nbody.cu
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
