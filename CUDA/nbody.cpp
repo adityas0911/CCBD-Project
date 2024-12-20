@@ -16,7 +16,7 @@ struct Body {
 
 __global__ void compute_accelerations(Body *bodies, float3 *acc, int n, float G, float eps2) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n) {
+    if (i < n && i != 0) {
         float xi = bodies[i].x;
         float yi = bodies[i].y;
         float zi = bodies[i].z;
@@ -45,7 +45,7 @@ __global__ void compute_accelerations(Body *bodies, float3 *acc, int n, float G,
 
 __global__ void update_bodies(Body *bodies, float3 *acc, int n, float dt) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n) {
+    if (i < n && i != 0) {
         bodies[i].vx += acc[i].x * dt;
         bodies[i].vy += acc[i].y * dt;
         bodies[i].vz += acc[i].z * dt;
@@ -127,11 +127,11 @@ std::vector<Body> readBodiesFromCSV(const std::string& filename) {
 int main() {
     // Simulation parameters
     float dt = 1.0f;     // Time step
-    int steps = 365 * 1/dt;      // Number of simulation steps
-    float G = 6.67430e-11f;
-    float eps2 = 1e-3f;   // Softening factor
+    int steps = 1 * 1/dt;      // Number of simulation steps
+    float G = 4.9823e-10f;      // Adjusted gravitational constant for km, kg, days
+    float eps2 = 0;   // Softening factor
 
-    std::string filename = "../data/10000/random_10000_body.csv";
+    std::string filename = "/content/solar_system_2023_01_01.csv";
     std::vector<Body> bodies_host = readBodiesFromCSV(filename);
 
     int n = (int)bodies_host.size();
@@ -171,7 +171,7 @@ int main() {
     cudaMemcpy(h_bodies, d_bodies, n*sizeof(Body), cudaMemcpyDeviceToHost);
 
     // Print out a few sample results
-    int printCount = (n < 5) ? n : 5;
+    int printCount = (n < 9) ? n : 9;
     printf("First %d bodies after %d steps:\n", printCount, steps);
     for (int i = 0; i < printCount; i++) {
         printf("Body %d: mass=%.3e, pos=(%.3f, %.3f, %.3f), vel=(%.3f, %.3f, %.3f)\n",
