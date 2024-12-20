@@ -77,7 +77,7 @@ std::vector<Body> readBodiesFromCSV(const std::string& filename) {
 
         // Check for header line (if present)
         if (first_line && (line.find('x') != std::string::npos ||
-                   line.find('X') != std::string::npos || 
+                   line.find('X') != std::string::npos ||
                    line.find("mass") != std::string::npos)) {
               // Likely a header line
               first_line = false;
@@ -131,7 +131,7 @@ int main() {
     float G = 4.9823e-10f;      // Adjusted gravitational constant for km, kg, days
     float eps2 = 0;   // Softening factor
 
-    std::string filename = "/content/solar_system_2023_01_01.csv";
+    std::string filename = "../data/random_10000_body.csv";
     std::vector<Body> bodies_host = readBodiesFromCSV(filename);
 
     int n = (int)bodies_host.size();
@@ -148,27 +148,26 @@ int main() {
 
     Body *d_bodies;
     float3 *d_acc;
-    cudaMalloc(&d_bodies, n*sizeof(Body));
-    cudaMalloc(&d_acc, n*sizeof(float3));
+    cudaMalloc(&d_bodies, n*sizeof(Body));      // Allocate Memory in GPU for Bodies
+    cudaMalloc(&d_acc, n*sizeof(float3));       // Allocate Memory in GPU for Accelerations
 
-    cudaMemcpy(d_bodies, h_bodies, n*sizeof(Body), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_bodies, h_bodies, n*sizeof(Body), cudaMemcpyHostToDevice);  // Copy data from CPU to GPU
 
     // Setup CUDA launch parameters
-    int blockSize = 256;
-    int gridSize = (n + blockSize - 1) / blockSize;     // Total data size / threads per block
+    int blockSize = 64;         // Number of threads per block
+    int gridSize = 2;           // Number of blocks
 
     // Benchmark simulation
     auto start_sim = std::chrono::high_resolution_clock::now();
     for (int s = 0; s < steps; s++) {
-        compute_accelerations<<<gridSize, blockSize>>>(d_bodies, d_acc, n, G, eps2);
-        update_bodies<<<gridSize, blockSize>>>(d_bodies, d_acc, n, dt);
+        compute_accelerations<<<gridSize, blockSize>>>(d_bodies, d_acc, n, G, eps2);    // Run kernal to compute accelerations
+        update_bodies<<<gridSize, blockSize>>>(d_bodies, d_acc, n, dt);                 // Run kernal to update bodies
         cudaDeviceSynchronize();
     }
     auto end_sim = std::chrono::high_resolution_clock::now();
     double sim_time = std::chrono::duration<double>(end_sim - start_sim).count();
 
-    // Benchmark copying results back
-    cudaMemcpy(h_bodies, d_bodies, n*sizeof(Body), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_bodies, d_bodies, n*sizeof(Body), cudaMemcpyDeviceToHost);            // Copy data from GPU back to CPU
 
     // Print out a few sample results
     int printCount = (n < 9) ? n : 9;
