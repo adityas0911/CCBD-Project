@@ -16,7 +16,7 @@ struct Body {
 
 __global__ void compute_accelerations(Body *bodies, float3 *acc, int n, float G, float eps2) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n && i != 0) {
+    if (i < n) {
         float xi = bodies[i].x;
         float yi = bodies[i].y;
         float zi = bodies[i].z;
@@ -45,7 +45,7 @@ __global__ void compute_accelerations(Body *bodies, float3 *acc, int n, float G,
 
 __global__ void update_bodies(Body *bodies, float3 *acc, int n, float dt) {
     int i = blockIdx.x * blockDim.x + threadIdx.x;
-    if (i < n && i != 0) {
+    if (i < n) {
         bodies[i].vx += acc[i].x * dt;
         bodies[i].vy += acc[i].y * dt;
         bodies[i].vz += acc[i].z * dt;
@@ -127,7 +127,7 @@ std::vector<Body> readBodiesFromCSV(const std::string& filename) {
 int main() {
     // Simulation parameters
     float dt = 1.0f;     // Time step
-    int steps = 1 * 1/dt;      // Number of simulation steps
+    int steps = 365 * 1/dt;      // Number of simulation steps
     float G = 4.9823e-10f;      // Adjusted gravitational constant for km, kg, days
     float eps2 = 0;   // Softening factor
 
@@ -155,7 +155,7 @@ int main() {
 
     // Setup CUDA launch parameters
     int blockSize = 256;
-    int gridSize = (n + blockSize - 1) / blockSize;
+    int gridSize = (n + blockSize - 1) / blockSize;     // Total data size / threads per block
 
     // Benchmark simulation
     auto start_sim = std::chrono::high_resolution_clock::now();
