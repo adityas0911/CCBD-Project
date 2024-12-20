@@ -152,7 +152,7 @@ Submit the job with:
 spark-submit Gravity_Simulator.py
 ```
 
-This will run the [gravity simulation file](https://github.com/adityas0911/CCBD-Project/blob/main/PySpark/Gravity%20Simulator.py) on the pyspark cluster.
+This will run the [gravity simulation file](https://github.com/adityas0911/CCBD-Project/blob/main/PySpark/Gravity_Simulator.py) on the pyspark cluster.
 
 ### 5. Closing the PySpark Containers
 
@@ -204,7 +204,7 @@ CCBD-Project/
 │   │   └── README.md
 │   │   ├── cloudbuild.yaml
 │   │   ├── docker-compose.yml
-│   ├── Gravity Simulator.py
+│   ├── Gravity_Simulator.py
 ├── CUDA/
 │   ├── .gitkeep
 ├── .gitattributes
