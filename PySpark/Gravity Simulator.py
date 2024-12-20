@@ -8,11 +8,8 @@ from pyspark.sql.types import StructType, StructField, DoubleType
 INPUT_FILE = "../data/solar_system_2023_01_01.csv"
 OUTPUT_FILE_NAME = "GravitySimulatorResults"
 UPDATED_GRAVITY_CONSTANT = 6.67430e-11 * (86400**2) / (10**9)
-DAYS_TO_SIMULATE = 365
-THREAD_COUNTS = [1,
-                 2,
-                 4,
-                 8]
+DAYS_TO_SIMULATE = 1
+THREAD_COUNTS = [8]
 schema = StructType([StructField("mass",
                                  DoubleType(),
                                  True),
