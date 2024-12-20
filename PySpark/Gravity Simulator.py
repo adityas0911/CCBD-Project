@@ -44,13 +44,12 @@ def create_spark_session(threads):
           .appName("GravitySimulator")
           .master("local[{}]".format(threads))
           .getOrCreate())
-
 def load_data(spark):
   return spark.read.csv(INPUT_FILE,
                         header=True,
                         schema=schema)
-
-def calculate_gravity(b_1, b_2):
+def calculate_gravity(b_1,
+                      b_2):
   dx = b_2["x"] - b_1["x"]
   dy = b_2["y"] - b_1["y"]
   dz = b_2["z"] - b_1["z"]
@@ -72,10 +71,10 @@ def calculate_gravity(b_1, b_2):
 def update_body_positions(partition):
   bodies = list(partition)
   updated_bodies = []
-  
+
   for i, body_1 in enumerate(bodies):
     ax, ay, az = 0.0, 0.0, 0.0
-    
+
     for j, body_2 in enumerate(bodies):
       if i != j:
         dx = body_2["x"] - body_1["x"]
@@ -98,7 +97,7 @@ def update_body_positions(partition):
     x_new = body_1["x"] + vx_new
     y_new = body_1["y"] + vy_new
     z_new = body_1["z"] + vz_new
-    
+
     updated_bodies.append(Row(mass=body_1["mass"],
                               x=x_new,
                               y=y_new,
