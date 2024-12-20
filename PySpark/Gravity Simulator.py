@@ -48,26 +48,6 @@ def load_data(spark):
   return spark.read.csv(INPUT_FILE,
                         header=True,
                         schema=schema)
-def calculate_gravity(b_1,
-                      b_2):
-  dx = b_2["x"] - b_1["x"]
-  dy = b_2["y"] - b_1["y"]
-  dz = b_2["z"] - b_1["z"]
-  distance = math.sqrt(dx**2 + dy**2 + dz**2)
-
-  if distance == 0:
-    return (0,
-            0,
-            0)
-
-  force = UPDATED_GRAVITY_CONSTANT * b_1["mass"] * b_2["mass"] / (distance**2)
-  fx = force * dx / distance
-  fy = force * dy / distance
-  fz = force * dz / distance
-
-  return (fx,
-          fy,
-          fz)
 def update_body_positions(partition):
   bodies = list(partition)
   updated_bodies = []
