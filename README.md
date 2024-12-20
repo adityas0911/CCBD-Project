@@ -149,7 +149,7 @@ cd ./CCBD-Project/PySpark
 Submit the job with:
 
 ```bash
-spark-submit 'Gravity Simulator.py'
+spark-submit Gravity_Simulator.py
 ```
 
 This will run the [gravity simulation file](https://github.com/adityas0911/CCBD-Project/blob/main/PySpark/Gravity%20Simulator.py) on the pyspark cluster.
