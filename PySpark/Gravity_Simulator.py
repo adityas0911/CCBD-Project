@@ -7,7 +7,11 @@ import csv
 from pyspark.sql import SparkSession, Row
 from pyspark.sql.types import StructType, StructField, DoubleType
 
-INPUT_FILE = "../data/solar_system_2023_01_01.csv"
+# INPUT_FILE = "../data/solar_system_2023_01_01.csv"
+# INPUT_FILE = "../data/100/random_100_body.csv"
+# INPUT_FILE = "../data/1000/random_1000_body.csv"
+INPUT_FILE = "../data/10000/random_10000_body.csv"
+# INPUT_FILE = "../data/100000/random_100000_body.csv"
 TERMINAL_LOG_FILE = "Terminal_Log.log"
 PERFORMANCE_METRICS_FILE = "Performance_Metrics.csv"
 OUTPUT_FILE_NAME = "Gravity_Simulator_Results_for"
