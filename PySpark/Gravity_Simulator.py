@@ -10,7 +10,7 @@ from pyspark.sql.types import StructType, StructField, DoubleType
 INPUT_FILE = "../data/solar_system_2023_01_01.csv"
 TERMINAL_LOG_FILE = "Terminal_Log.log"
 PERFORMANCE_METRICS_FILE = "Performance_Metrics.csv"
-OUTPUT_FILE_NAME = "Gravity_Simulator_Results_for_"
+OUTPUT_FILE_NAME = "Gravity_Simulator_Results_for"
 UPDATED_GRAVITY_CONSTANT = 6.67430e-11 * (86400**2) / (10**9)
 DAYS_TO_SIMULATE = 365
 THREAD_COUNTS = [1,
@@ -93,28 +93,26 @@ def update_body_positions(partition):
   return iter(updated_bodies)
 def log_performance(threads,
                     partitions,
-                    time_taken,
-                    time_improvement):
+                    time_taken):
   with open(PERFORMANCE_METRICS_FILE,
             mode='a',
             newline='') as file:
     writer = csv.writer(file)
     writer.writerow([threads,
                      partitions,
-                     time_taken,
-                     time_improvement])
+                     time_taken])
 def main():
   if not os.path.exists(PERFORMANCE_METRICS_FILE):
     with open(PERFORMANCE_METRICS_FILE,
               mode='w',
               newline='') as file:
       writer = csv.writer(file)
-      writer.writerow(["Threads", "Partitions", "Time Taken (seconds)", "Time Improvement (%)"])
-
-  previous_time = None
+      writer.writerow(["Threads",
+                       "Partitions",
+                       "Time Taken (seconds)"])
 
   for threads in THREAD_COUNTS:
-    logging.info("Starting simulation with {} threads".format(threads))
+    logging.info("Current number of threads: {}".format(threads))
 
     spark = create_spark_session(threads)
     data = load_data(spark).repartition(threads)
@@ -133,33 +131,29 @@ def main():
     simulated_data = bodies.rdd.mapPartitions(update_body_positions)
     time_taken = time.time() - start_time
 
-    if previous_time is None:
-      time_improvement = 0.0
-    else:
-      time_improvement = ((previous_time - time_taken) / previous_time) * 100
-
     log_performance(threads,
                     current_partitions,
-                    time_taken,
-                    time_improvement)
+                    time_taken)
 
     simulated_df = spark.createDataFrame(simulated_data,
                                          schema=schema)
 
-    logging.info("Simulation with {} threads completed in {} seconds".format(threads,
-                                                                             time_taken))
     if threads != 1:
+      logging.info("Time taken with {} threads: {} seconds".format(threads,
+                                                                   time_taken))
+
       output_file = "{}_{}_threads.csv".format(OUTPUT_FILE_NAME,
                                                threads)
     else:
+      logging.info("Time taken with {} thread: {} seconds".format(threads,
+                                                                  time_taken))
+
       output_file = "{}_{}_thread.csv".format(OUTPUT_FILE_NAME,
                                               threads)
 
     simulated_df.write.csv(output_file,
                            header=True)
-    logging.info("Results saved to {}".format(output_file))
-
-    previous_time = time_taken
+    logging.info("Results saved to {}.".format(output_file))
 
     spark.stop()
 

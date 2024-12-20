@@ -1,0 +1,16 @@
+2024-12-20 07:38:23,050 - INFO - Current number of threads: 1
+2024-12-20 07:38:32,611 - INFO - Current number of partitions: 1
+2024-12-20 07:38:33,001 - INFO - Time taken with 1 thread: 0.1410226821899414 seconds
+2024-12-20 07:38:36,607 - INFO - Results saved to Gravity_Simulator_Results_for_1_thread.csv.
+2024-12-20 07:38:37,374 - INFO - Current number of threads: 2
+2024-12-20 07:38:37,759 - INFO - Current number of partitions: 2
+2024-12-20 07:38:37,995 - INFO - Time taken with 2 threads: 0.08873534202575684 seconds
+2024-12-20 07:38:39,179 - INFO - Results saved to Gravity_Simulator_Results_for_2_threads.csv.
+2024-12-20 07:38:40,021 - INFO - Current number of threads: 4
+2024-12-20 07:38:40,439 - INFO - Current number of partitions: 4
+2024-12-20 07:38:40,642 - INFO - Time taken with 4 threads: 0.07546424865722656 seconds
+2024-12-20 07:38:41,961 - INFO - Results saved to Gravity_Simulator_Results_for_4_threads.csv.
+2024-12-20 07:38:42,771 - INFO - Current number of threads: 8
+2024-12-20 07:38:43,120 - INFO - Current number of partitions: 8
+2024-12-20 07:38:43,363 - INFO - Time taken with 8 threads: 0.06940269470214844 seconds
+2024-12-20 07:38:45,200 - INFO - Results saved to Gravity_Simulator_Results_for_8_threads.csv.
