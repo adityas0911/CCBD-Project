@@ -1,1 +1,12 @@
-2024-12-19 21:57:28,723 - INFO - Starting simulation with 1 threads
+2024-12-20 00:03:10,567 - INFO - Starting simulation with 1 threads
+2024-12-20 00:03:21,976 - INFO - Simulation with 1 threads completed in 2.57 seconds
+2024-12-20 00:03:25,377 - INFO - Results saved to GravitySimulatorResults_threads_1.csv
+2024-12-20 00:03:25,945 - INFO - Starting simulation with 2 threads
+2024-12-20 00:03:26,433 - INFO - Simulation with 2 threads completed in 0.14 seconds
+2024-12-20 00:03:28,243 - INFO - Results saved to GravitySimulatorResults_threads_2.csv
+2024-12-20 00:03:29,022 - INFO - Starting simulation with 4 threads
+2024-12-20 00:03:29,902 - INFO - Simulation with 4 threads completed in 0.20 seconds
+2024-12-20 00:03:31,661 - INFO - Results saved to GravitySimulatorResults_threads_4.csv
+2024-12-20 00:03:32,541 - INFO - Starting simulation with 8 threads
+2024-12-20 00:03:33,028 - INFO - Simulation with 8 threads completed in 0.13 seconds
+2024-12-20 00:03:34,562 - INFO - Results saved to GravitySimulatorResults_threads_8.csv
