@@ -54,9 +54,9 @@ ax = fig.add_subplot(111, projection='3d')
 scatter = ax.scatter([], [], [])
 
 # Set plot limits (adjust based on your data)
-ax.set_xlim(-1e11, 1e11)
-ax.set_ylim(-1e11, 1e11)
-ax.set_zlim(-1e11, 1e11)
+ax.set_xlim(-1e9, 1e9)
+ax.set_ylim(-1e9, 1e9)
+ax.set_zlim(-1e9, 1e9)
 # ax.set_xlim(-6000, 6000)
 # ax.set_ylim(-6000, 6000)
 # ax.set_zlim(-6000, 6000)
@@ -78,7 +78,7 @@ def update(frame):
     return scatter,
 
 # Create the animation
-ani = FuncAnimation(fig, update, frames=len(simulation_data), interval=10, blit=False)
+ani = FuncAnimation(fig, update, frames=len(simulation_data), interval=20, blit=False)
 
 # Show the animation
 plt.show()
